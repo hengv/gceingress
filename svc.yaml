@@ -1,8 +1,9 @@
-
 kind: Service
 apiVersion: v1
 metadata:
   annotations:
+    cloud.google.com/backend-config: '{"ports": {"80-tcp":"80-config"}}'
+    cloud.google.com/app-protocols: '{"80-tcp":"HTTP"}'
     cloud.google.com/neg: '{"ingress":true}'
   name: "hello"
   labels:
@@ -11,7 +12,8 @@ spec:
   selector:
     app: "hello"
   ports:
-    - protocol: "TCP"
+    - name: 80-tcp
+      protocol: "TCP"
       port: 80
       targetPort: 80
   type: ClusterIP
